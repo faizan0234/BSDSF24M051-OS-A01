@@ -1,0 +1,5 @@
+Linux is an operating system.
+I am learning Linux.
+C programming is useful.
+Linux provides many tools.
+Operating systems are important.
