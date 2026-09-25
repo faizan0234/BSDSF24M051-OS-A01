@@ -1,10 +1,10 @@
 CC = gcc
 
-CFLAGS = -Wall -Wextra -Iinclude
+CFLAGS = -Wall -Wextra -Iinclude -fPIC
 
-TARGET = bin/client_static
+TARGET = bin/client_dynamic
 
-LIB = lib/libmyutils.a
+LIB = lib/libmyutils.so
 
 OBJECTS = obj/main.o obj/mystrfunctions.o obj/myfilefunctions.o
 
@@ -13,7 +13,7 @@ all: $(TARGET)
 
 
 $(LIB): obj/mystrfunctions.o obj/myfilefunctions.o
-	ar rcs $(LIB) obj/mystrfunctions.o obj/myfilefunctions.o
+	$(CC) -shared -o $(LIB) obj/mystrfunctions.o obj/myfilefunctions.o
 
 
 $(TARGET): obj/main.o $(LIB)
@@ -33,4 +33,4 @@ obj/myfilefunctions.o: src/myfilefunctions.c
 
 
 clean:
-	rm -f obj/*.o lib/libmyutils.a bin/client_static
+	rm -f obj/*.o lib/libmyutils.so bin/client_dynamic
