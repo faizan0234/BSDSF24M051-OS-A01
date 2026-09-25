@@ -2,9 +2,9 @@ CC = gcc
 
 CFLAGS = -Wall -Wextra -Iinclude
 
-TARGET = bin/client
+TARGET = bin/client_static
 
-SOURCES = src/main.c src/mystrfunctions.c src/myfilefunctions.c
+LIB = lib/libmyutils.a
 
 OBJECTS = obj/main.o obj/mystrfunctions.o obj/myfilefunctions.o
 
@@ -12,8 +12,12 @@ OBJECTS = obj/main.o obj/mystrfunctions.o obj/myfilefunctions.o
 all: $(TARGET)
 
 
-$(TARGET): $(OBJECTS)
-	$(CC) $(OBJECTS) -o $(TARGET)
+$(LIB): obj/mystrfunctions.o obj/myfilefunctions.o
+	ar rcs $(LIB) obj/mystrfunctions.o obj/myfilefunctions.o
+
+
+$(TARGET): obj/main.o $(LIB)
+	$(CC) obj/main.o -Llib -lmyutils -o $(TARGET)
 
 
 obj/main.o: src/main.c
@@ -29,4 +33,4 @@ obj/myfilefunctions.o: src/myfilefunctions.c
 
 
 clean:
-	rm -f $(OBJECTS) $(TARGET)
+	rm -f obj/*.o lib/libmyutils.a bin/client_static
