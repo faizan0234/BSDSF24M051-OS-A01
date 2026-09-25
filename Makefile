@@ -34,3 +34,7 @@ obj/myfilefunctions.o: src/myfilefunctions.c
 
 clean:
 	rm -f obj/*.o lib/libmyutils.so bin/client_dynamic
+install:
+	install -d /usr/local/share/man/man3
+	install -m 644 man/man3/*.3 /usr/local/share/man/man3/
+	mandb
